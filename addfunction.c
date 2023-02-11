@@ -4,6 +4,7 @@
 #include "libft.h"
 
 //int sigemptyset(sigset_t *set);
+
 int	checkoverflow(unsigned long long out, int sign)
 {
 	if (out > 2146218951891489519)
@@ -44,26 +45,35 @@ int	ft_atoi(const char *str)
 	}
 	return (out * sign);
 }
-
-void ft_dtob(int av)
+void dtob(int av)
 {
-    char arr[32]; 
+    static int arr[32]; 
     int i = 0;
-    printf("hello girl");
-    // if(av == 0)
-    //     return ;
+    int j;
+    if(av == 0)
+        return ;
     while(av > 0)
     {
          arr[i] = av % 2;
         av /= 2;
         i++;
     }
-    for(int i = 0; i < strlen(arr);i++)
-    printf("decimal to byte is : %c\n", arr[i]);
+    i = 8;
+      j = i - 1; 
+    while(j >= 0)
+     {
+         printf("%d", arr[j]);
+         j--;
+     }
 }
 int main(int ac, char **av)
 {
-    int pid = ft_atoi(av[1]);
-    char arr[32] = ft_dtob(pid); 
-    //signal()
+    int pid;
+   if(ac >= 2)
+   {
+    pid = ft_atoi(av[1]);
+    dtob(pid);
+   }
 }
+
+ 

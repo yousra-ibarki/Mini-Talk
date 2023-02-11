@@ -11,7 +11,7 @@ int main(int ac, char **av)
 	{
 		if(kill(av[1], SIGUSR1) == 1)
 		{
-			kill(av[1], user)
+			kill(av[1], SIGUSR1);
 		}
 		else if(kill(av[1], SIGUSR1) == 0){
 

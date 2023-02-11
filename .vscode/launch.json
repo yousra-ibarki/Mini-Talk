@@ -1,13 +1,14 @@
 {
   "version": "0.2.0",
   "configurations": [
+
     {
       "name": "C/C++ Runner: Debug Session",
       "type": "lldb",
       "request": "launch",
       "args": [],
-      "cwd": "/Users/yoibarki/Desktop/push-swap",
-      "program": "/Users/yoibarki/Desktop/push-swap/build/Debug/outDebug"
+      "cwd": "/Users/yoibarki/Desktop/MiniTalk",
+      "program": "/Users/yoibarki/Desktop/MiniTalk/build/Debug/outDebug"
     }
   ]
 }
