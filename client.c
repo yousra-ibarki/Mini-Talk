@@ -1,30 +1,41 @@
-#include "libft.h"
+#include "libft/libft.h"
+#include "printf/ft_printf.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <signal.h>
-// A = 01000001
-int global;
+
+void	ft_fonction(int pid, char i)
+{
+	int c = 0;
+	while(c <= 7)
+			{
+				if((i & (1 << c)) != 0)
+					kill(pid, SIGUSR1);
+				else
+					kill(pid, SIGUSR2);
+				usleep(100);
+				c++;
+			}
+}
 int main(int ac, char **av)
 {
-	int pid = ft_atoi(av[1]);
-	if(ac <= 3)
+	int i = 0;
+	char c = 0;
+	int pid;
+	if(ac == 3)
 	{
-		if(kill(av[1], SIGUSR1) == 1)
+		pid = ft_atoi(av[1]);
+		while(av[2][i] != '\0')
 		{
-			kill(av[1], SIGUSR1);
+			ft_fonction(pid, av[2][i]);	
+			i++;
 		}
-		else if(kill(av[1], SIGUSR1) == 0){
-
-		}
-		{
-
-		}
-		printf("%d\n", global);
-		printf("sigusr1 is %d\n", SIGUSR1);
-		printf("sigusr1 is %d\n", SIGUSR2);
-		//printf("the first one is :%s\nthe pid is:%s\nthe string is:%s", av[0], av[1], av[2]);
-	//kill(pid, SIGUSR1);
+		ft_fonction(pid, '\n');
 	}
 	else
+		{
+			printf("Error : Check the number of arguments\n");
+			return 1;
+		}
 	return 0;
 }

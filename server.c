@@ -1,27 +1,41 @@
-#include "libft.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <signal.h>
-int glvar;
-void handler(int signum)
+#include "libft/libft.h"
+#include "printf/ft_printf.h"
+//int glvar;
+
+static void handler(int sig)
 {
-	printf("i just wanna sleep %d\n", signum);
+	static int i;
+	static int bit;
+
+	if(sig == SIGUSR1)
 	
+		// temp = 1 << i;
+		// c |= temp;
+		i |= (0x01 << bit);
+
+		bit++;
+	if(bit == 8)
+	{
+		printf("%c", i);
+		i = 0;
+		bit = 0;
+	}
+
 }
 int main(void)
 {
-	signal(SIGUSR1,handler);
-	printf("The pid of your process is:%d", getpid());
-	//signal(SIGUSR1, void (*func)(int))
+	//struct sigaction varaction;
+	ft_printf("Your PID is : %d\n", getpid());
+	//varaction.sa_sigaction = handler;
+	//varaction.sa_flags = 
+	while(1)
+	{
+		signal(SIGUSR1, handler);
+		signal(SIGUSR2, handler);
+		pause();
+	}
 	return 0;
 }
-// void handel(int seg)
-// {
-// 	printf("handel here %d\n", seg);
-// }
-// int main()
-// {
-// 	signal(SIGINT, handel);
-// 	while(1);
-// 	return 0;
-// }
