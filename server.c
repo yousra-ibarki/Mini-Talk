@@ -3,39 +3,35 @@
 #include <signal.h>
 #include "libft/libft.h"
 #include "printf/ft_printf.h"
-//int glvar;
 
-static void handler(int sig)
+static void ft_fix(int sig)
 {
-	static int i;
-	static int bit;
+	int message;
+	int i;
+
+	i = 0;
+	message = 0;
 
 	if(sig == SIGUSR1)
-	
-		// temp = 1 << i;
-		// c |= temp;
-		i |= (0x01 << bit);
+		message = message | (1 << i);
+	i++;
 
-		bit++;
-	if(bit == 8)
+	if(i == 8)
 	{
-		printf("%c", i);
+		printf("%c", message);
+		message = 0;
 		i = 0;
-		bit = 0;
 	}
 
 }
+
 int main(void)
 {
-	//struct sigaction varaction;
-	ft_printf("Your PID is : %d\n", getpid());
-	//varaction.sa_sigaction = handler;
-	//varaction.sa_flags = 
-	while(1)
-	{
-		signal(SIGUSR1, handler);
-		signal(SIGUSR2, handler);
-		pause();
-	}
-	return 0;
+	ft_printf("Your PID is : %d\nYour message is : ", getpid());
+		signal(SIGUSR1, ft_fix);
+		signal(SIGUSR2, ft_fix);
+		//pause();
+		while(1);
+	
+	return (0);
 }

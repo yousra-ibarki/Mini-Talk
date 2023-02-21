@@ -19,9 +19,13 @@ void	ft_fonction(int pid, char i)
 }
 int main(int ac, char **av)
 {
-	int i = 0;
-	char c = 0;
+	int i;
+	char c;
 	int pid;
+
+	i = 0;
+	c = 0;
+	if()
 	if(ac == 3)
 	{
 		pid = ft_atoi(av[1]);
