@@ -10,9 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+//#include "libft.h"
+#include <stdio.h>
 
-int	checkoverflow(unsigned long long out, int sign)
+static int	checkoverflow(unsigned long long out, int sign)
 {
 	if (out > 2146218951891489519)
 	{
@@ -52,3 +53,4 @@ int	ft_atoi(const char *str)
 	}
 	return (out * sign);
 }
+
