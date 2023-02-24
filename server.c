@@ -13,11 +13,11 @@ static void receivemsg(int sig, siginfo_t *info, void *context)
 		pid = info->si_pid;
 
 	if(sig == SIGUSR1)
-		message = message | (1 << i);
+		message |= (1 << i);
 	i++;
 	if(i == 8)
 	{
-		ft_printf("%c", message);
+		ft_printf(" %c", message);
 		message = 0;
 		i = 0;
 	}
@@ -32,8 +32,8 @@ int main(void)
 
 	ft_printf("Your PID is : %d\nYour message is : ", getpid());
     //sigaction(int sig, const struct sigaction *restrict act, struct sigaction *restrict oact)
-		sigaction(SIGUSR1, &handsig, NULL);
-		sigaction(SIGUSR2, &handsig, NULL);
+		sigaction(SIGUSR1, &handsig, 0);
+		sigaction(SIGUSR2, &handsig, 0);
 		
-		while(1);
+	while(1);
 }
