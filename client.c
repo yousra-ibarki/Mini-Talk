@@ -44,17 +44,18 @@ int	ft_atoi(const char *str)
 	return (out * sign);
 }
 
-
-void	sendfcnt(int pid, char i)
+void	sendmessage(char i, int pid)
 {
-	int c = 0;
+	int c;
+	
+	c = 0;
 	while(c <= 7)
 			{
-				if((i & (1 << c)) != 0)
+				 if((i & (1 << c)) != 0)
 					kill(pid, SIGUSR1);
 				else
 					kill(pid, SIGUSR2);
-				usleep(1000);
+				usleep(99);
 				c++;
 			}
 }
@@ -77,10 +78,9 @@ int main(int ac, char **av)
 		pid = ft_atoi(av[1]);
 		while(av[2][i] != '\0')
 		{
-			sendfcnt(pid, av[2][i]);	
+			sendmessage(av[2][i], pid);	
 			i++;
 		}
-		sendfcnt(pid, '\n');
 	}
 	return 0;
 }
