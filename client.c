@@ -55,7 +55,7 @@ void	sendmessage(char i, int pid)
 					kill(pid, SIGUSR1);
 				else
 					kill(pid, SIGUSR2);
-				usleep(1);
+				usleep(500);
 				c++;
 			}
 }
@@ -77,7 +77,6 @@ int main(int ac, char **av)
 		while(av[2][i] != '\0')
 		{
 			sendmessage(av[2][i], pid);	
-			//sendmessage(' ', pid);
 			i++;
 		}
 	}

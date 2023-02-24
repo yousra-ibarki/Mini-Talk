@@ -3,21 +3,25 @@
 #include <sys/types.h>
 #include <signal.h>
 #include "printf/ft_printf.h"
-
+//, siginfo_t *info, void *context
 static void receivemsg(int sig, siginfo_t *info, void *context)
 {
 	static int message;
 	static int i;
-	static pid_t pid = 0;
-	if(pid != info->si_pid)
-		pid = info->si_pid;
+	static pid_t pid;
 
+	if(pid != info->si_pid)
+	{
+		pid = info->si_pid;
+		message = 0;
+		i = 0;
+	}
 	if(sig == SIGUSR1)
 		message |= (1 << i);
 	i++;
 	if(i == 8)
 	{
-		ft_printf(" %c", message);
+		ft_printf("%c", message);
 		message = 0;
 		i = 0;
 	}
@@ -25,15 +29,18 @@ static void receivemsg(int sig, siginfo_t *info, void *context)
 }
 
 int main(void)
-{
-	struct sigaction handsig;
-	handsig.sa_sigaction = &receivemsg;
-	handsig.sa_flags = SA_SIGINFO;
-
-	ft_printf("Your PID is : %d\nYour message is : ", getpid());
+{   
+	pid_t pid = getpid();
+	struct sigaction sighand;
+	sighand.sa_sigaction = &receivemsg;
+	sighand.sa_flags = SA_SIGINFO;
+	ft_printf("Your PID is : %d\nYour message is : ", pid);
     //sigaction(int sig, const struct sigaction *restrict act, struct sigaction *restrict oact)
-		sigaction(SIGUSR1, &handsig, 0);
-		sigaction(SIGUSR2, &handsig, 0);
-		
-	while(1);
+		while(1)
+		{
+			sigaction(SIGUSR1, &sighand, 0);
+			sigaction(SIGUSR2, &sighand, 0);
+			pause();
+		}	
+	//while(1);
 }
