@@ -6,7 +6,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 all : server client
 
-server: server.o libft
+server: server.o 
 	$(CC) -o $@ $< -Llibft -lft
 
 client: client.o libft
@@ -15,7 +15,7 @@ client: client.o libft
 %.o: %.c 
 	$(CC) -c $(CFLAGS)
 
-libft : 
+ : 
 	make -C libft
 
 clean : 

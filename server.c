@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <signal.h>
-#include "printf/ft_printf.h"
+#include "ft_printf/ft_printf.h"
 //, siginfo_t *info, void *context
 static void receivemsg(int sig, siginfo_t *info, void *context)
 {
@@ -30,11 +30,10 @@ static void receivemsg(int sig, siginfo_t *info, void *context)
 
 int main(void)
 {   
-	pid_t pid = getpid();
 	struct sigaction sighand;
 	sighand.sa_sigaction = &receivemsg;
 	sighand.sa_flags = SA_SIGINFO;
-	ft_printf("Your PID is : %d\nYour message is : ", pid);
+	ft_printf("Your PID is : %d\nYour message is : ", getpid());
     //sigaction(int sig, const struct sigaction *restrict act, struct sigaction *restrict oact)
 		while(1)
 		{
