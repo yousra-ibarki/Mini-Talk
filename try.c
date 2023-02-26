@@ -3,30 +3,31 @@
 #include <sys/types.h>
 #include <signal.h>
 #include "ft_printf/ft_printf.h"
-static void receivemsg(int sig, siginfo_t *info, void *context)
+//client
+int main(int ac, char **av)
 {
-	static int message;
-	static int i;
-	static pid_t pid;
+	int i;
+	static int pid;
 
-	if(pid != info->si_pid)
+	i = 0;
+	if(ac != 3)
 	{
-		pid = info->si_pid;
-		message = 0;
-		i = 0;
-	}
-	if(sig == SIGUSR1)
-		message |= (1 << i);
-	i++;
-	if(i == 8)
-	{
-		ft_printf("%c", message);
-		message = 0;
-		i = 0;
+		ft_printf("Error : Check the number of arguments\n");
+		return (1);
 	}
 
+	else
+	{
+		pid = ft_atoi(av[1]);
+		while(av[2][i] != '\0')
+		{
+			sendmessage(av[2][i], pid);	 //kill(siguser, pid)
+			i++;
+		}
+	}
+	return 0;
 }
-
+//server
 int main(void)
 {   
 	struct sigaction sighand;
@@ -38,6 +39,5 @@ int main(void)
 			sigaction(SIGUSR1, &sighand, 0);
 			sigaction(SIGUSR2, &sighand, 0);
 			pause();
-		}
-			
+		}	
 }

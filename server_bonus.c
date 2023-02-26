@@ -21,9 +21,12 @@ static void receivemsg(int sig, siginfo_t *info, void *context)
 	if(i == 8)
 	{
 		ft_printf("%c", message);
+        if(message == '\0')
+            kill(info->si_pid, SIGUSR2);
 		message = 0;
 		i = 0;
 	}
+    
 
 }
 
@@ -38,6 +41,5 @@ int main(void)
 			sigaction(SIGUSR1, &sighand, 0);
 			sigaction(SIGUSR2, &sighand, 0);
 			pause();
-		}
-			
+		}	
 }
