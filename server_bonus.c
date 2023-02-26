@@ -3,6 +3,7 @@
 #include <sys/types.h>
 #include <signal.h>
 #include "ft_printf/ft_printf.h"
+
 static void receivemsg(int sig, siginfo_t *info, void *context)
 {
 	static int message;
@@ -20,15 +21,19 @@ static void receivemsg(int sig, siginfo_t *info, void *context)
 	i++;
 	if(i == 8)
 	{
-		ft_printf("%c", message);
         if(message == '\0')
-            kill(info->si_pid, SIGUSR2);
+            {
+				ft_printf("just trying the shit");
+				usleep(10000);
+				kill(info->si_pid, SIGUSR2);
+				printf("	try\n");
+			}
+		ft_printf("%c", message);
 		message = 0;
 		i = 0;
 	}
-    
-
 }
+
 
 int main(void)
 {   

@@ -59,14 +59,19 @@ void	sendmessage(char i, int pid)
 				c++;
 			}
 }
+//, siginfo_t *info, void *context
 static void confirmation(int sig)
 {
-		ft_printf("Well Done 👍");
+		ft_printf("Well Done");	
 }
 int main(int ac, char **av)
 {
 	int i;
 	static int pid;
+	// struct sigaction conf;
+	// conf.sa_sigaction = &confirmation;
+	// conf.sa_flags = SA_SIGINFO;
+	
 
 	i = 0;
 	if(ac != 3)
@@ -83,6 +88,13 @@ int main(int ac, char **av)
 			sendmessage(av[2][i], pid);	
 			i++;
 		}
-        signal(SIGUSR2, &confirmation);
+		if(av[2][i] == '\0')
+		{
+			sendmessage('\0', pid);
+			//sigaction(SIGUSR2, &conf, NULL);
+			signal(SIGUSR1, &confirmation);
+			printf("dont");
+			//sleep(50);
+		}
 	}
 }
