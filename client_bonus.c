@@ -62,7 +62,11 @@ void	sendmessage(char i, int pid)
 //, siginfo_t *info, void *context
 static void confirmation(int sig)
 {
-		ft_printf("Well Done");	
+	if(sig == SIGUSR1)
+		ft_printf("Well Done");
+	else 
+		ft_printf("Well Done", 1);
+
 }
 int main(int ac, char **av)
 {
@@ -85,16 +89,17 @@ int main(int ac, char **av)
 		pid = ft_atoi(av[1]);
 		while(av[2][i] != '\0')
 		{
-			sendmessage(av[2][i], pid);	
+				signal(SIGUSR1, confirmation);
+				signal(SIGUSR2, confirmation);
+				sendmessage(av[2][i], pid);	
 			i++;
 		}
-		if(av[2][i] == '\0')
-		{
-			sendmessage('\0', pid);
-			//sigaction(SIGUSR2, &conf, NULL);
-			signal(SIGUSR1, &confirmation);
-			printf("dont");
-			//sleep(50);
-		}
+		// if(av[2][i] == '\0')
+		// {
+		// 	sendmessage('\0', pid);
+		// 	//sigaction(SIGUSR2, &conf, NULL);
+		// 	printf("dont");
+		// 	//sleep(50);
+		// }
 	}
 }
