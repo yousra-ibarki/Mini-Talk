@@ -6,13 +6,14 @@
 /*   By: yoibarki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 15:18:07 by yoibarki          #+#    #+#             */
-/*   Updated: 2022/11/19 15:18:11 by yoibarki         ###   ########.fr       */
+/*   Updated: 2023/02/27 15:58:48 by yoibarki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
+# include <stdio.h>
 # include <stdarg.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -27,5 +28,7 @@ char	*ft_strdup(const char *s1);
 int		ft_printunsigned(unsigned int nb);
 int		ft_printhex(unsigned int h, char type);
 int		ft_count(unsigned int h);
+int		ft_atoi(const char *str);
+size_t	ft_strlen(const char *s);
 
 #endif

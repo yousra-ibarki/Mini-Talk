@@ -16,7 +16,8 @@ SRCS =	 ft_strdup.c \
 		ft_pointer.c \
 		ft_printhex.c \
 		ft_itoa.c \
-		ft_printunsigned.c 	
+		ft_printunsigned.c \
+		add_funt.c 
 
 OBJS = $(SRCS:%.c=%.o)
 CFLAGS = -Wall -Werror -Wextra

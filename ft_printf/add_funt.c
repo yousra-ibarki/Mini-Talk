@@ -1,18 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   add_funt.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoibarki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/27 14:12:08 by yoibarki          #+#    #+#             */
-/*   Updated: 2023/02/27 14:13:05 by yoibarki         ###   ########.fr       */
+/*   Created: 2023/02/27 14:21:06 by yoibarki          #+#    #+#             */
+/*   Updated: 2023/02/27 14:21:35 by yoibarki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf/ft_printf.h"
-#include <unistd.h>
 #include <stdio.h>
-#include <signal.h>
 
 static int	checkoverflow(unsigned long long out, int sign)
 {
@@ -55,41 +52,14 @@ int	ft_atoi(const char *str)
 	return (out * sign);
 }
 
-void	sendmessage(char i, int pid)
-{
-	int	c;
+// size_t	ft_strlen(const char *s)
+// {
+// 	int	i;
 
-	c = 0;
-	while (c <= 7)
-	{
-		if ((i & (1 << c)) != 0)
-			kill(pid, SIGUSR1);
-		else
-			kill(pid, SIGUSR2);
-		usleep(500);
-		c++;
-	}
-}
-
-int	main(int ac, char **av)
-{
-	int			i;
-	static int	pid;
-
-	i = 0;
-	if (ac != 3)
-	{
-		ft_printf("Error : Check the number of arguments\n");
-		return (1);
-	}
-	else
-	{
-		pid = ft_atoi(av[1]);
-		while (av[2][i] != '\0')
-		{
-			sendmessage(av[2][i], pid);
-			i++;
-		}
-	}
-	return (0);
-}
+// 	i = 0;
+// 	while (s[i])
+// 	{
+// 		i++;
+// 	}
+// 	return (i);
+// }	
