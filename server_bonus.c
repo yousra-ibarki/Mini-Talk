@@ -21,19 +21,14 @@ static void receivemsg(int sig, siginfo_t *info, void *context)
 	i++;
 	if(i == 8)
 	{
-        //if(message == '\0')
-            //{
-				//ft_printf("just trying the shit");
-				//usleep(100000);
-				//printf("	try\n");
-			//}
 		ft_printf("%c", message);
+				if(message == 0)
+				kill(info->si_pid, SIGUSR2);
+
 		message = 0;
 		i = 0;
-		kill(info->si_pid, SIGUSR2);
 	}
 }
-
 
 int main(void)
 {   

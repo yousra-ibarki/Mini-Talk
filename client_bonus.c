@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <signal.h>
-
+#include <string.h>
 static int	checkoverflow(unsigned long long out, int sign)
 {
 	if (out > 2146218951891489519)
@@ -59,19 +59,15 @@ void	sendmessage(char i, int pid)
 				c++;
 			}
 }
-//, siginfo_t *info, void *context
 static void confirmation(int sig)
 {
-	if(sig == SIGUSR1)
-		ft_printf("Well Done");
-	else 
-		ft_printf("Well Done", 1);
-
+		ft_printf("Well Done 👌");
 }
 int main(int ac, char **av)
 {
 	int i;
 	static int pid;
+	int len = strlen(av[2]);
 	// struct sigaction conf;
 	// conf.sa_sigaction = &confirmation;
 	// conf.sa_flags = SA_SIGINFO;
@@ -87,19 +83,12 @@ int main(int ac, char **av)
 	else
 	{
 		pid = ft_atoi(av[1]);
-		while(av[2][i] != '\0')
+		while(i <= len)
 		{
-				signal(SIGUSR1, confirmation);
-				signal(SIGUSR2, confirmation);
-				sendmessage(av[2][i], pid);	
+			signal(SIGUSR1, confirmation);
+			signal(SIGUSR2, confirmation);
+			sendmessage(av[2][i], pid);	
 			i++;
 		}
-		// if(av[2][i] == '\0')
-		// {
-		// 	sendmessage('\0', pid);
-		// 	//sigaction(SIGUSR2, &conf, NULL);
-		// 	printf("dont");
-		// 	//sleep(50);
-		// }
 	}
 }
