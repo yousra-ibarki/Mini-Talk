@@ -15,63 +15,76 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-static void	receivemsg(int sig, siginfo_t *info, void *context)
+struct		s_var
 {
-	static long int	message;
-	static int		i;
-	static pid_t	pid;
-	static int		char_lenght;
-	static char		buff[4];
-	int j = 0;
+	int		i;
+	pid_t	pid;
+	int		nbr_byte;
+	char	buff[4];
+}			var_s;
 
-	(void)context;
-	if (pid != info->si_pid)
+static void	printmsg(int message)
+{
+	int	j;
+
+	j = 0;
+	if (var_s.i == 8)
+		ft_printf("%c", message);
+	else
 	{
-		pid = info->si_pid;
-		message = 0;
-		i = 0;
-		char_lenght = 0;
+		while (j < 4)
+		{
+			var_s.buff[j] = message >> j * 8;
+			j++;
+		}
+		ft_printf("%s", var_s.buff);
+		j = 0;
 	}
-	if (sig == SIGUSR1)
-	{
-		message |= (1 << i);
-	}
-	i++;
-	if (i == 8)
+}
+
+static void	checknbr_byte(int message)
+{
+	if (var_s.i == 8)
 	{
 		if (message >= 240)
-			char_lenght = 3;
+			var_s.nbr_byte = 3;
 		else if (message >= 224)
-			char_lenght = 2;
+			var_s.nbr_byte = 2;
 		else if (message >= 192)
-			char_lenght = 1;
+			var_s.nbr_byte = 1;
 		else
-			char_lenght = 0;
-		char_lenght = char_lenght * 8;
+			var_s.nbr_byte = 0;
+		var_s.nbr_byte = var_s.nbr_byte * 8;
 	}
-	//printf("%d\n",char_lenght);
-	if (!char_lenght && i >= 8)
+}
+
+static void	receivemsg(int sig, siginfo_t *info, void *context)
+{
+	static int	message;
+
+	(void)context;
+	if (var_s.pid != info->si_pid)
 	{
-		if (i == 8)
-			ft_printf("%c", message);
-		else
-		{
-			while(j < 4)
-			{
-				buff[j] = message >> j * 8;
-				j++;
-			}
-			ft_printf("%s", buff);
-			j = 0;
-		}
+		var_s.pid = info->si_pid;
+		message = 0;
+		var_s.i = 0;
+		var_s.nbr_byte = 0;
+	}
+	if (sig == SIGUSR1)
+		message |= (1 << var_s.i);
+	var_s.i++;
+	checknbr_byte(message);
+	if (!var_s.nbr_byte && var_s.i >= 8)
+	{
+		printmsg(message);
 		if (message == 0)
 			kill(info->si_pid, SIGUSR2);
 		message = 0;
-		i = 0;
-		char_lenght = 0;
+		var_s.i = 0;
+		var_s.nbr_byte = 0;
 	}
-	else if (i >= 8)
-		char_lenght--;
+	else if (var_s.i >= 8)
+		var_s.nbr_byte--;
 }
 
 int	main(void)

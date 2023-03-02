@@ -1,30 +1,25 @@
-NAME = Minitalk.a
 SOURCES = client.c \
-		server.c \
-		server_bonus.c \
-		client_bonus.c 
+		  server.c \
+		  server_bonus.c \
+		  client_bonus.c 
 
-OBJECTS = $(SOURCES .c=.o)
-
+OBJECTS = $(SRCS:%.c=%.o)
 CFLAGS = -Wall -Wextra -Werror
 CC = gcc
 RM = rm -f
 AR = ar -rcs
 
-all : $(NAME)
-
-$(NAME):$(OBJECTS)
-	$(AR) $(NAME) $(OBJECTS)
+$(AR) $(OBJECTS)
 
 %.o: %.c 
 	$(CC) -c $(CFLAGS) -c $< -o $@
 
-clean : 
+clean: 
 	$(RM) $(OBJECTS)
 
-fclean : clean
-	$(RM) $(NAME)
+fclean: clean
+	$(RM)
 
-re : fclean all
+re: fclean all
 
-.phony : all clean fclean re 
+#.phony: all clean fclean re 

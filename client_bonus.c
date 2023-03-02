@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 
 #include "ft_printf/ft_printf.h"
-#include <unistd.h>
-#include <stdio.h>
 #include <signal.h>
+#include <stdio.h>
+#include <unistd.h>
 
 void	sendmessage(char i, int pid)
 {
@@ -26,7 +26,7 @@ void	sendmessage(char i, int pid)
 		{
 			if (kill(pid, SIGUSR1) < 0)
 			{
-				ft_printf("WATCH OUT, Wrong PID 🥴");
+				ft_printf("WATCH OUT, Something is wrong 🥴");
 				exit(1);
 			}
 		}
