@@ -1,30 +1,30 @@
-SOURCES = client.c server.c
+NAME = Minitalk.a
+SOURCES = client.c \
+		server.c \
+		server_bonus.c \
+		client_bonus.c 
+
 OBJECTS = $(SOURCES .c=.o)
 
-CC = gcc
 CFLAGS = -Wall -Wextra -Werror
+CC = gcc
+RM = rm -f
+AR = ar -rcs
 
-all : server client
+all : $(NAME)
 
-server: server.o 
-	$(CC) -o $@ $< -Llibft -lft
-
-client: client.o libft
-	$(CC) -o $@ $< -Llibft -lft
+$(NAME):$(OBJECTS)
+	$(AR) $(NAME) $(OBJECTS)
 
 %.o: %.c 
-	$(CC) -c $(CFLAGS)
-
- : 
-	make -C libft
+	$(CC) -c $(CFLAGS) -c $< -o $@
 
 clean : 
-	rm -f $(OBJECTS)
-	make -C libft clean
+	$(RM) $(OBJECTS)
 
 fclean : clean
-	rm -f server client libft/libft.a
+	$(RM) $(NAME)
 
 re : fclean all
 
-.phony : all libft clean fclean re 
+.phony : all clean fclean re 
