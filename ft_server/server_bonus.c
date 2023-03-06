@@ -9,7 +9,7 @@
 /*   Updated: 2023/02/27 13:43:37 by yoibarki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf/ft_printf.h"
+#include "../ft_printf/ft_printf.h"
 #include <signal.h>
 #include <stdio.h>
 #include <sys/types.h>

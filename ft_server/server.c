@@ -13,10 +13,11 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <signal.h>
-#include "ft_printf/ft_printf.h"
+#include "../ft_printf/ft_printf.h"
 
 static void	receivemsg(int sig, siginfo_t *info, void *context)
 {
+	(void)context;
 	static int		message;
 	static int		i;
 	static pid_t	pid;
