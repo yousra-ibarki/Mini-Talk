@@ -11,9 +11,6 @@
 /* ************************************************************************** */
 
 #include "../ft_printf/ft_printf.h"
-#include <signal.h>
-#include <stdio.h>
-#include <unistd.h>
 
 void	sendmessage(char i, int pid)
 {
@@ -39,7 +36,10 @@ void	sendmessage(char i, int pid)
 
 static void	confirmation(int sig)
 {
-	ft_printf("Well Done 👌");
+	if (sig == SIGUSR1)
+		ft_printf("Well Done 👌");
+	else
+		ft_printf("Well Done 👌");
 }
 
 int	main(int ac, char **av)

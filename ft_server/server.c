@@ -9,19 +9,16 @@
 /*   Updated: 2023/02/27 14:09:48 by yoibarki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <unistd.h>
-#include <stdio.h>
-#include <sys/types.h>
-#include <signal.h>
+
 #include "../ft_printf/ft_printf.h"
 
 static void	receivemsg(int sig, siginfo_t *info, void *context)
 {
-	(void)context;
 	static int		message;
 	static int		i;
 	static pid_t	pid;
 
+	(void)context;
 	if (pid != info->si_pid)
 	{
 		pid = info->si_pid;
@@ -44,12 +41,12 @@ int	main(void)
 	struct sigaction	sighand;
 
 	sighand.sa_sigaction = &receivemsg;
-	sighand.sa_flags = SA_SIGINFO;
+	//sighand.sa_flags = SA_SIGINFO;
 	ft_printf("Your PID is : %d\nYour message is : ", getpid());
 	while (1)
 	{
 		sigaction(SIGUSR1, &sighand, 0);
 		sigaction(SIGUSR2, &sighand, 0);
 		pause();
-	}		
+	}
 }

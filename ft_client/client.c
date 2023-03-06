@@ -10,9 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "../ft_printf/ft_printf.h"
-#include <unistd.h>
-#include <stdio.h>
-#include <signal.h>
 
 static int	checkoverflow(unsigned long long out, int sign)
 {

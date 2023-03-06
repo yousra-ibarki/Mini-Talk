@@ -10,10 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "../ft_printf/ft_printf.h"
-#include <signal.h>
-#include <stdio.h>
-#include <sys/types.h>
-#include <unistd.h>
 
 struct		s_var
 {
